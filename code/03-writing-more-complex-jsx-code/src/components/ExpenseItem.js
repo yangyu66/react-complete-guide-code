@@ -1,10 +1,14 @@
-function ExpenseItem() {
+function ExpenseItem(props) {
+  const expTitle = "Car Insurance";
+  const expNum = 294.67;
+
   return (
     <div>
       <div>March 28th 2021</div>
       <div>
         <h2>Car Insurance</h2>
-        <div>$294.67</div>
+        <h3>{props.expTitle}</h3>
+        <div> ${props.expNum} </div>
       </div>
     </div>
   );
