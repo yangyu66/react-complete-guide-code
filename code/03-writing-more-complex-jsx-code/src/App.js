@@ -1,4 +1,4 @@
-import ExpenseItem from "./components/ExpenseItem";
+import Exps from "./components/Exps";
 
 function App() {
   var exps = [
@@ -8,14 +8,7 @@ function App() {
   return (
     <div>
       <h2>Let's get started!</h2>
-      <ExpenseItem
-        expTitle={exps[0].title}
-        expNum={exps[0].amount}
-      ></ExpenseItem>
-      <ExpenseItem
-        expTitle={exps[1].title}
-        expNum={exps[1].amount}
-      ></ExpenseItem>
+      <Exps item={exps}></Exps>
     </div>
   );
 }
