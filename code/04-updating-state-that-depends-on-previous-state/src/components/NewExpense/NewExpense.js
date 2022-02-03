@@ -3,7 +3,7 @@ import React from 'react';
 import ExpenseForm from './ExpenseForm';
 import './NewExpense.css';
 
-const NewExpense = () => {
+const NewExpense = (props) => {
 
   const AddNewExpHandler = (expData) => {
     console.log("in newExp.js")
@@ -12,6 +12,7 @@ const NewExpense = () => {
       id: Math.random().toString(),
     }
     console.log(newData)
+    props.onNewExp(newData)
   }
 
   return (
