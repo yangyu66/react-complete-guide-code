@@ -13,10 +13,12 @@ const AddUser = (props) => {
     console.log(event.target.value);
     setName(event.target.value);
   };
+
   const ageChangeHandler = (event) => {
     console.log(event.target.value);
     setAge(event.target.value);
   };
+
   const onSubmitHandler = (event) => {
     console.log("in submit");
     event.preventDefault();
@@ -34,9 +36,19 @@ const AddUser = (props) => {
     props.onAddUser({ name: name, agee: age, key: Math.random().toString() });
   };
 
+  const errrHandler = () => {
+    setError(null);
+  };
+
   return (
     <div>
-      {error && <ErrorModal title={error.title} message={error.message} />}
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onDismiss={errrHandler}
+        />
+      )}
       <Card userClass={classes.input}>
         <form onSubmit={onSubmitHandler}>
           <label htmlFor="username">Username</label>
