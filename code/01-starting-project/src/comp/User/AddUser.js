@@ -1,6 +1,8 @@
 import { useState } from "react";
 import classes from "./AddUser.module.css";
 import Card from '../UI/Card';
+import Button from '../UI/Button';
+
 
 const AddUser = () => {
   const [name, setName] = useState("");
@@ -15,11 +17,12 @@ const AddUser = () => {
   return (
     <Card userClass={classes.input}>
       <form onSubmit={onSubmitHandler}>
-        <label htmlFor="fname">First name:</label>
-        <input type="text" id="fname" name="fname" value="John" />
-        <label htmlFor="lname">Age:</label>
-        <input type="number" id="lname" name="lname" value="20" />
-        <input type="submit" value="Submit"></input>
+      <label htmlFor="username">Username</label>
+        <input id="username" type="text" />
+        <label htmlFor="age">Age (Years)</label>
+        <input id="age" type="number" />
+        <Button type="submit">Add User</Button>
+
       </form>
     </Card>
   );
