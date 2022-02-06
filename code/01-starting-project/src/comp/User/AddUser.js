@@ -3,7 +3,7 @@ import classes from "./AddUser.module.css";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 
-const AddUser = () => {
+const AddUser = (props) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
@@ -19,14 +19,15 @@ const AddUser = () => {
     console.log("in submit");
     event.preventDefault();
     if (name.trim().length === 0 || age.trim().length === 0) {
-      return
+      return;
     }
     if (age < 1) {
-      return
+      return;
     }
     console.log(name, age);
     setName("");
     setAge("");
+    props.onAddUser({ name: name, agee: age, key: Math.random().toString() });
   };
 
   return (
