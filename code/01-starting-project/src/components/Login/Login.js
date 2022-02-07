@@ -11,11 +11,21 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // clean up function(in return) get called before evaluate, 
+  // so will cancel previous timer before set a new one
   useEffect(() => {
-    console.log("Checking")
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const idx =  setTimeout(()=> {
+      console.log("Checking")
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500)
+
+    return () => {
+      console.log("cleanup")
+      clearTimeout(idx)
+    }
+
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
