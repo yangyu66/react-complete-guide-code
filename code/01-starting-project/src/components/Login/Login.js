@@ -11,6 +11,16 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // empty list, evaluate once
+  // useEffect(() => {
+  //   console.log("test ---- running")
+  // }, [])
+
+  // empty, evaluate ALWAYS
+  // useEffect(() => {
+  //   console.log("test ---- running")
+  // }, )
+
   // clean up function(in return) get called before evaluate, 
   // so will cancel previous timer before set a new one
   useEffect(() => {
