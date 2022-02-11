@@ -6,6 +6,7 @@ import classes from './MealItemForm.module.css';
 const MealItemForm = (props) => {
 
   const amountInputRef = useRef();
+  const [valid, setV] = useState(true)
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -19,8 +20,13 @@ const MealItemForm = (props) => {
       enteredAmountNumber < 1 ||
       enteredAmountNumber > 5
     ) {
+      setV(false)
       return;
     }
+    setV(true)
+
+    props.onAddItem(enteredAmountNumber)
+
 
   }
 
@@ -34,12 +40,13 @@ const MealItemForm = (props) => {
           id: 'amount_' + props.id,
           type: 'number',
           min: '1',
-          max: '5',
+          max: '50',
           step: '1',
           defaultValue: '1',
         }}
       />
       <button>+ Add</button>
+      {!valid && <p> Invalid input!</p> }
     </form>
   );
 };
