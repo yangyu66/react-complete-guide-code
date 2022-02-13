@@ -28,7 +28,7 @@ function App() {
   // }
 
 
-  async function fetchMoviesHandler() {
+  const fetchMoviesHandler =  useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -56,7 +56,7 @@ function App() {
 
 
       setLoading(false)
-  }
+  }, [])
 
   useEffect(() => {fetchMoviesHandler()}, [fetchMoviesHandler])
 
