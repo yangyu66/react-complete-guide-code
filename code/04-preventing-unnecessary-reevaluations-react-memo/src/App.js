@@ -6,13 +6,22 @@ import './App.css';
 
 function App() {
   const [showParagraph, setShowParagraph] = useState(false);
+  const [allowTog, setAllowTog] = useState(false);
 
   console.log('APP RUNNING');
 
+  // variable allowTog outside of closure, so need to add to dep list 
   const toggleParagraphHandler = useCallback(() => {
-    setShowParagraph((prevShowParagraph) => !prevShowParagraph);
-  }, []);
+    if (allowTog) {
+      setShowParagraph((prevShowParagraph) => !prevShowParagraph);
+    }
+  }, [allowTog]);
  
+  const allowtoggleParagraphHandler = useCallback(() => {
+    // setAllowTog((p) => !p);
+    setAllowTog(true)
+  }, []);
+
   return (
     <div className="app">
       <h1>Hi there!</h1>
@@ -25,7 +34,9 @@ function App() {
       to prevent DemoOutput re-run
       */}
 
-      <DemoOutput show={false} />
+      <DemoOutput show={showParagraph} />
+      <Button onClick={allowtoggleParagraphHandler}>Allow Toggle !</Button>
+
       <Button onClick={toggleParagraphHandler}>Toggle Paragraph!</Button>
     </div>
   );
