@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendReq = async (reqConfig, applyData) => {
+  const sendReq = useCallback(async (reqConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -23,10 +23,11 @@ const useHttp = () => {
       const data = await response.json();
       applyData(data);
     } catch (err) {
+      console.log(err)
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
-  };
+  }, []);
 
   // useEffect(() => {
   //     sendReq();
