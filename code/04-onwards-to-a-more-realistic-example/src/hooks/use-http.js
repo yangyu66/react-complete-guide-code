@@ -16,6 +16,8 @@ const useHttp = () => {
           : null,
       });
 
+      console.log(reqConfig.method ? reqConfig.method : "GET", reqConfig.url)
+
       if (!response.ok) {
         throw new Error("Request failed!");
       }

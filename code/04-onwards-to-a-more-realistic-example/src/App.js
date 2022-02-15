@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
@@ -9,22 +9,26 @@ function App() {
 
   const { isLoading, error, sendReq: fetchTasks } = useHttp();
 
-  useEffect(() => {
-    const transformTasks = (tasksObj) => {
-      const loadedTasks = [];
+  const transformTasks = (tasksObj) => {
+    const loadedTasks = [];
 
-      for (const taskKey in tasksObj) {
-        loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
-      }
+    for (const taskKey in tasksObj) {
+      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
+    }
 
-      setTasks(loadedTasks);
-    };
+    setTasks(loadedTasks);
+  };
 
+  const fetch = useCallback(() => {
     fetchTasks(
       { url: 'https://react-http-c381d-default-rtdb.firebaseio.com/tasks.json' },
       transformTasks
     );
-  }, [fetchTasks]);
+  }, []);
+  
+  useEffect(() => {
+    fetch()
+  }, []);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
@@ -39,6 +43,8 @@ function App() {
         error={error}
         onFetch={fetchTasks}
       />
+      <button onClick={fetch}>reload</button>
+
     </React.Fragment>
   );
 }
