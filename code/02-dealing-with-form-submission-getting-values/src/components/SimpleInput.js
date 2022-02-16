@@ -6,6 +6,7 @@ const SimpleInput = (props) => {
   const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
+
   useEffect(() => {
     if (enteredNameIsValid) {
       console.log('Name Input is valid!');
@@ -14,6 +15,17 @@ const SimpleInput = (props) => {
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
+    setEnteredNameTouched(true);
+
+    console.log(event.target)
+    if (event.target.value.trim() !== '') {
+      setEnteredNameIsValid(true);
+    } else if (event.target.value.trim().length < 1) {
+      console.log("detect")
+      setEnteredNameIsValid(false);
+    } else {
+      console.log("no")
+    }
   };
 
   const nameInputBlurHandler = event => {
@@ -46,6 +58,7 @@ const SimpleInput = (props) => {
     setEnteredName('');
   };
 
+  
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const nameInputClasses = nameInputIsInvalid
