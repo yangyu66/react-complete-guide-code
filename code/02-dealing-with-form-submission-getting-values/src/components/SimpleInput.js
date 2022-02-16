@@ -1,9 +1,16 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SimpleInput = (props) => {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState('');
-  const [enteredNameValid, setEnteredNameValid] = useState(true);
+  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
+  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+  useEffect(() => {
+    if (enteredNameIsValid) {
+      console.log('Name Input is valid!');
+    }
+  }, [enteredNameIsValid]);
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -12,12 +19,14 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
-    if (enteredName.trim() === "") {
-      setEnteredNameValid(false)
-      return
+    setEnteredNameTouched(true);
+
+    if (enteredName.trim() === '') {
+      setEnteredNameIsValid(false);
+      return;
     }
 
-    setEnteredNameValid(true)
+    setEnteredNameIsValid(true);
 
     console.log(enteredName);
 
@@ -28,11 +37,15 @@ const SimpleInput = (props) => {
     setEnteredName('');
   };
 
-  const inputClass = enteredNameValid ? "form-control" : "form-control invalid"
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  const nameInputClasses = nameInputIsInvalid
+    ? 'form-control invalid'
+    : 'form-control';
 
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className={inputClass}>
+      <div className={nameInputClasses}>
         <label htmlFor='name'>Your Name</label>
         <input
           ref={nameInputRef}
@@ -41,7 +54,9 @@ const SimpleInput = (props) => {
           onChange={nameInputChangeHandler}
           value={enteredName}
         />
-        {!enteredNameValid && <p> Can'tt be empty!</p>}
+        {nameInputIsInvalid && (
+          <p className='error-text'>Name must not be empty.</p>
+        )}
       </div>
       <div className='form-actions'>
         <button>Submit</button>
