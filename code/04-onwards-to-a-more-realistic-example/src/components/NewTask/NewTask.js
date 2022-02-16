@@ -8,9 +8,11 @@ const NewTask = (props) => {
   const { isLoading, error, sendReq: sendTaskRequest } = useHttp();
 
   const createTask = (taskText, taskData) => {
+    // taskData is sth returned by firebase after usehttp api  hitting it
+    console.log(taskText, taskData)
     const generatedId = taskData.name; // firebase-specific => "name" contains generated id
     const createdTask = { id: generatedId, text: taskText };
-    console.log(createTask)
+    console.log(createdTask)
     props.onAddTask(createdTask);
   };
 
