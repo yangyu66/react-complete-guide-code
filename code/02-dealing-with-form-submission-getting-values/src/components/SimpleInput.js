@@ -3,10 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 const SimpleInput = (props) => {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState('');
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
-
+  const enteredNameIsValid = enteredName.trim() !== ''
   useEffect(() => {
     if (enteredNameIsValid) {
       console.log('Name Input is valid!');
@@ -15,40 +14,17 @@ const SimpleInput = (props) => {
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
-    setEnteredNameTouched(true);
-
+    setEnteredNameTouched(true)
     console.log(event.target)
-    if (event.target.value.trim() !== '') {
-      setEnteredNameIsValid(true);
-    } else if (event.target.value.trim().length < 1) {
-      console.log("detect")
-      setEnteredNameIsValid(false);
-    } else {
-      console.log("no")
-    }
   };
 
   const nameInputBlurHandler = event => {
     setEnteredNameTouched(true);
-
-    if (enteredName.trim() === '') {
-      setEnteredNameIsValid(false);
-      return;
-    }
   };
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-
     setEnteredNameTouched(true);
-
-    if (enteredName.trim() === '') {
-      setEnteredNameIsValid(false);
-      return;
-    }
-
-    setEnteredNameIsValid(true);
-
     console.log(enteredName);
 
     const enteredValue = nameInputRef.current.value;
@@ -56,6 +32,7 @@ const SimpleInput = (props) => {
 
     // nameInputRef.current.value = ''; => NOT IDEAL, DON'T MANIPULATE THE DOM
     setEnteredName('');
+    setEnteredNameTouched(false)
   };
 
   
