@@ -4,11 +4,16 @@ const SimpleInput = (props) => {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState('');
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  const [formValid, setFormValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== ''
   useEffect(() => {
     if (enteredNameIsValid) {
       console.log('Name Input is valid!');
+      setFormValid(true)
+    } else {
+      console.log('Name Input is NOT valid!');
+      setFormValid(false)
     }
   }, [enteredNameIsValid]);
 
@@ -59,7 +64,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className='form-actions'>
-        <button>Submit</button>
+        <button disabled={!formValid}>Submit</button>
       </div>
     </form>
   );
