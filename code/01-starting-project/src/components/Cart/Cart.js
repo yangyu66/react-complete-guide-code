@@ -29,6 +29,30 @@ const Cart = (props) => {
     setChecked(false)
   }
 
+  const onOrderConfirm =  (userInfo) => {
+    console.log(userInfo)
+
+    const postOrder = async (userInfo) => {
+      const resp = await fetch("https://react-http-c381d-default-rtdb.firebaseio.com/orders.json", 
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userInfo,
+          orderedItems: cartCtx.items
+        })
+      })
+  
+      if (!resp.ok) {
+        throw new Error('Something went wrong!');
+      }
+    }
+
+    postOrder(userInfo).catch((error) => {
+      console.log(error.message)
+    }).then({})
+
+  }
+
   const cartItems = (
     <ul className={classes['cart-items']}>
       {cartCtx.items.map((item) => (
@@ -61,7 +85,7 @@ const Cart = (props) => {
         <span>{totalAmount}</span>
       </div>
 
-      {isChecked && <Checkout onCancel={cancelHandler}> </Checkout>}
+      {isChecked && <Checkout onOrderConfirm={onOrderConfirm} onCancel={cancelHandler}> </Checkout>}
       {!isChecked && modalActions}
 
     </Modal>

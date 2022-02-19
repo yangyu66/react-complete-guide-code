@@ -20,6 +20,7 @@ const Checkout = (props) => {
         if (curFormValid) {
             console.log(name)
             // submit
+            props.onOrderConfirm({name: name})
         }
         return
     }
