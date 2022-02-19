@@ -1,15 +1,35 @@
+import { useRef, useState } from 'react';
+
+
 import classes from './Checkout.module.css';
 
+const isEmpty = (v) => {return v.trim() === ''}
+
 const Checkout = (props) => {
+    const nameRef = useRef()
+    const [formValid, setFormValid] = useState({name: true})
+
+
     const confirmHandler = (event) => {
         event.preventDefault();
+        const name = nameRef.current.value;
+
+        const nameValid = !isEmpty(name);
+        setFormValid({name: nameValid})
+        const curFormValid = nameValid
+        if (curFormValid) {
+            console.log(name)
+            // submit
+        }
         return
     }
+
     return (
         <form className={classes.form} onSubmit={confirmHandler}>
           <div className={classes.control}>
             <label htmlFor='name'>Your Name</label>
-            <input type='text' id='name' />
+            <input type='text' id='name' ref={nameRef}/>
+            {!formValid.name && <p> invalid name</p> }
           </div>
           <div className={classes.control}>
             <label htmlFor='street'>Street</label>
