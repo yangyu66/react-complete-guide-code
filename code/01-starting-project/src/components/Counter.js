@@ -7,6 +7,7 @@ const Counter = () => {
 
   /// will set up subsriber to this state in store
   const counter = useSelector(state => state.counter);
+  const show = useSelector(state => state.show);
 
 
   const incrementHandler = () => {
@@ -19,12 +20,13 @@ const Counter = () => {
 
   const toggleCounterHandler = () => {
     console.log("hit")
+    dispatch({ type: 'toggle' });
   };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>-- COUNTER VALUE -- {counter}</div>
+      {show &&  <div className={classes.value}>-- COUNTER VALUE -- {counter}</div>}
 
       <div>
         <button onClick={incrementHandler}>Increment</button>
