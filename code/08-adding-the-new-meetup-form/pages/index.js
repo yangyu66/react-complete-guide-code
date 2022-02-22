@@ -18,14 +18,27 @@ const DUMMY_MEETUPS = [
   }
 ];
 
-function HomePage() {
-  const [meetups, setMeetups] = useState([])
-  useEffect(() => {
-    setMeetups(DUMMY_MEETUPS)
-  }, [])
+function HomePage(props) {
+  // const [meetups, setMeetups] = useState([])
+  // useEffect(() => {
+  //   setMeetups(DUMMY_MEETUPS)
+  // }, [])
 
 
-  return <MeetupList meetups={meetups} />
+  return <MeetupList meetups={props.meetups} />
 }
+
+// will never run in client, run before component rendring, 
+// when build it will generate!
+export async function getStaticProps() {
+  // fetch data from an API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS
+    },
+    revalidate: 1   // server will run every 1 second if there is rq
+  }; 
+}
+
 
 export default HomePage;
