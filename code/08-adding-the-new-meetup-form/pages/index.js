@@ -32,11 +32,12 @@ function HomePage(props) {
 // when build it will generate!
 export async function getStaticProps() {
   // fetch data from an API
+  console.log("run getStaticProps()")
   return {
     props: {
       meetups: DUMMY_MEETUPS
     },
-    revalidate: 1   // server will run every 1 second if there is rq
+    revalidate: 10   // server will run every 1 second if there is rq
   }; 
 }
 
